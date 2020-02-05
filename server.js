@@ -1,11 +1,13 @@
 // server.js
 const net = require('net');
 const port = 8124;
+const seed = 
 
 const server = net.createServer((client) => {
   console.log('Client connected');
 
   client.setEncoding('utf8');
+  client.setId()
 
   client.on('data', (data) => {
     console.log(data);
