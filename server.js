@@ -1,17 +1,30 @@
 // server.js
 const net = require('net');
 const port = 8124;
-const seed = 
+const firstRequestString = 'QA';
+const successRes = 'ASC';
+const failedRes = 'DEC';
+const qa = require('./qa.json');
+
+let seed = 1;
 
 const server = net.createServer((client) => {
   console.log('Client connected');
 
   client.setEncoding('utf8');
-  client.setId()
+  client.ID = Date.now() + seed++ ;
 
   client.on('data', (data) => {
     console.log(data);
-    client.write('\r\nHello!\r\nRegards,\r\nServer\r\n');
+
+    switch (data) {
+      case firstRequestString:
+        client.write(successRes);
+        break;
+      default:
+        client.write(failedRes);
+        break;
+    }
   });
 
   client.on('end', () => console.log('Client disconnected'));
