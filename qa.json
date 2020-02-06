@@ -1,0 +1,22 @@
+[
+  {
+    "Question" : "What is it?",
+    "Answer" : "Node.js"
+  },
+  {
+    "Question" : "How old are you?",
+    "Answer" : "I'don't know"
+  },
+  {
+    "Question" : "Do you know JS?",
+    "Answer" : "Yes, I do"
+  },
+  {
+    "Question" : "Have you got any types?",
+    "Answer" : "No, I don't"
+  },
+  {
+    "Question" : "Is it final question?",
+    "Answer" : "Yes, it is"
+  }
+]
