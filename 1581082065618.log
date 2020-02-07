@@ -1,0 +1,11 @@
+Client: QA
+Client: Have you got any types?
+Server: Node.js
+Client: How old are you?
+Server: I'don't know
+Client: Do you know JS?
+Server: Yes, I do
+Client: Is it final question?
+Server: No, I don't
+Client: What is it?
+Server: Yes, it is
