@@ -1,5 +1,6 @@
 // server.js
 const net = require('net');
+const fs = require('fs');
 const port = 8124;
 const firstRequestString = 'QA';
 const successRes = 'ASC';
@@ -21,13 +22,41 @@ const server = net.createServer((client) => {
 
     if ( (data == firstRequestString) && (client.RequestNumber == 1) ){
       console.log(data);
+
+      fs.writeFile(client.ID + '.log', 'Client: ' + data + '\r\n', function (err) {
+        if (err) throw err;
+      });
+
       client.write(successRes);
+
+      fs.appendFile(client.ID + '.log','Server: ' + successRes + '\r\n', function (err) {
+        if (err) throw err;
+      });
     }else if ( (data != firstRequestString) && (client.RequestNumber == 1) ){
       console.log(data);
+
+      fs.writeFile(client.ID + '.log', 'Client: ' + data + '\r\n', function (err) {
+        if (err) throw err;
+      });
+
       client.write(failedRes);
+
+      fs.appendFile(client.ID + '.log','Server: ' + failedRes + '\r\n', function (err) {
+        if (err) throw err;
+      });
+
     }else {
       console.log(data);
+
+      fs.appendFile(client.ID + '.log', 'Client: ' + data + '\r\n', function (err) {
+        if (err) throw err;
+      });
+
       client.write(qa[client.RequestNumber - 2].Answer);
+
+      fs.appendFile(client.ID + '.log', 'Server: ' + qa[client.RequestNumber - 2].Answer + '\r\n', function (err) {
+        if (err) throw err;
+      });
     }
   });
 
