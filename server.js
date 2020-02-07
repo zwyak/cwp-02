@@ -13,17 +13,21 @@ const server = net.createServer((client) => {
 
   client.setEncoding('utf8');
   client.ID = Date.now() + seed++ ;
+  client.RequestNumber = 0;
 
   client.on('data', (data) => {
-    console.log(data);
 
-    switch (data) {
-      case firstRequestString:
-        client.write(successRes);
-        break;
-      default:
-        client.write(failedRes);
-        break;
+    client.RequestNumber = client.RequestNumber + 1;
+
+    if ( (data == firstRequestString) && (client.RequestNumber == 1) ){
+      console.log(data);
+      client.write(successRes);
+    }else if ( (data != firstRequestString) && (client.RequestNumber == 1) ){
+      console.log(data);
+      client.write(failedRes);
+    }else {
+      console.log(data);
+      client.write(qa[client.RequestNumber - 2].Answer);
     }
   });
 

@@ -21,13 +21,30 @@ client.setEncoding('utf8');
 
 client.connect(port, function() {
   console.log('Connected');
+  client.RequestNumber = 0;
+  client.write(firstRequestString);
 });
 
-client.write(firstRequestString);
 
 client.on('data', function(data) {
-  console.log(data);
-  client.destroy();
+
+  client.RequestNumber = client.RequestNumber + 1;
+
+  if ( (data == successRes) && (client.RequestNumber == 1) ){
+    console.log(data);
+    client.write(qa[client.RequestNumber - 1].Question);
+  }else if ( (data != successRes) && (client.RequestNumber == 1) ){
+    console.log(data);
+    client.destroy();
+  }else {
+    if (client.RequestNumber < qa.length + 1){
+      console.log(data);
+      client.write(qa[client.RequestNumber - 1].Question);
+    }else{
+      console.log(data);
+      client.destroy();
+    }
+  }
 });
 
 client.on('close', function() {
